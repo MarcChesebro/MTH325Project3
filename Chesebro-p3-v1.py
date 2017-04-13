@@ -38,19 +38,26 @@ def labelToVertex(label, vertList):
             return v
     return -1
 
+def isRelated(vert1, vert2, edges):
+    for e in edges:
+        if e.A == vert1 and e.B == vert2:
+            return True
+    return False
+
 def isReflexive(verts, edges):
     for v in verts:
-        hasLoop = False
-        for e in edges:
-            if e.A == v.label and e.B == v.label:
-                hasLoop = True
-                break
-        if not hasLoop:
+        if not isRelated(v.label, v.label, edges):
             return False
     return True
 
 
 def isSymmetric(edges):
+    for e in edges:
+        if not isRelated(e.B, e.A, edges):
+            return False
+    return True
+
+def isTransitive(edges):
     for e in edges:
         hasSym = False
         for e2 in edges:
