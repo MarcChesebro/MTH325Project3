@@ -8,15 +8,13 @@
 
 #edge object containing the start and end point
 class edge(object):
-    def __init__(self, vertA, vertB, weight):
+    def __init__(self, vertA, vertB):
         self.A = vertA
         self.B = vertB
-        self.w = weight
 
 class vertex(object):
     def __init__(self, label):
         self.label = label
-        self.pathLength = -1
 
 #function to find the degree of a vertex given a name
 #and list of edges
@@ -47,6 +45,8 @@ userEdges = input("enter the edges((a,b), (b,c)): \n")
 #get rid of spaces and split on commas
 userVerts = userVerts.replace(" ", "")
 userEdges = userEdges.replace(" ", "")
+userEdges = userEdges.replace("(", "")
+userEdges = userEdges.replace(")", "")
 
 vertsStr = userVerts.split(',')
 edgesStr = userEdges.split(',')
@@ -57,6 +57,13 @@ for str in vertsStr:
 
 #turn the edge strings into a list of edge objects
 edges = []
+x = 0
+p = edgesStr[0]
 for str in edgesStr:
-    tempV = str.split('-')
-    edges.append(edge(labelToVertex(tempV[0], verts), labelToVertex(tempV[1], verts) , int(tempV[2])))
+    if not (x == 0):
+        edges.append(edge(p, str))
+        x = 0
+    else:
+        x = 1
+for e in edges:
+    print(e.A, e.B)
