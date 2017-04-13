@@ -49,6 +49,19 @@ def isReflexive(verts, edges):
             return False
     return True
 
+
+def isSymmetric(edges):
+    for e in edges:
+        hasSym = False
+        for e2 in edges:
+            if e.A == e2.B and e.B == e2.A:
+                hasSym = True
+                break
+        if not hasSym:
+            return False
+    return True
+
+
 #get user input
 userVerts = input("enter the vertices(a, b, c): \n")
 userEdges = input("enter the edges((a,b), (b,c)): \n")
@@ -77,7 +90,7 @@ for str in edgesStr:
     else:
         x = 1
     p = str
-for e in edges:
-    print(e.A, e.B)
 
-print(isReflexive(verts, edges))
+print("Reflexive: ", isReflexive(verts, edges))
+print("Symmetric: ", isSymmetric(edges))
+
