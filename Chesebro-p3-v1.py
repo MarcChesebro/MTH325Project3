@@ -59,13 +59,10 @@ def isSymmetric(edges):
 
 def isTransitive(edges):
     for e in edges:
-        hasSym = False
+        isTran = False
         for e2 in edges:
-            if e.A == e2.B and e.B == e2.A:
-                hasSym = True
-                break
-        if not hasSym:
-            return False
+            if e.B == e2.A and not isRelated(e.A, e2.B, edges):
+                return False
     return True
 
 
@@ -100,4 +97,4 @@ for str in edgesStr:
 
 print("Reflexive: ", isReflexive(verts, edges))
 print("Symmetric: ", isSymmetric(edges))
-
+print("Transitive: ", isTransitive(edges))
