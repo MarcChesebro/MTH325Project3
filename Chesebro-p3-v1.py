@@ -38,6 +38,17 @@ def labelToVertex(label, vertList):
             return v
     return -1
 
+def isReflexive(verts, edges):
+    for v in verts:
+        hasLoop = False
+        for e in edges:
+            if e.A == v.label and e.B == v.label:
+                hasLoop = True
+                break
+        if not hasLoop:
+            return False
+    return True
+
 #get user input
 userVerts = input("enter the vertices(a, b, c): \n")
 userEdges = input("enter the edges((a,b), (b,c)): \n")
@@ -65,5 +76,8 @@ for str in edgesStr:
         x = 0
     else:
         x = 1
+    p = str
 for e in edges:
     print(e.A, e.B)
+
+print(isReflexive(verts, edges))
