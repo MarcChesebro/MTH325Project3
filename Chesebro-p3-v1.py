@@ -57,6 +57,13 @@ def isSymmetric(edges):
             return False
     return True
 
+def isAntisymmetric(edges):
+    for e in edges:
+        if isRelated(e.B, e.A, edges) and not e.A == e.B:
+            return False
+    return True
+
+
 def isTransitive(edges):
     for e in edges:
         isTran = False
@@ -98,3 +105,4 @@ for str in edgesStr:
 print("Reflexive: ", isReflexive(verts, edges))
 print("Symmetric: ", isSymmetric(edges))
 print("Transitive: ", isTransitive(edges))
+print("Antisymmetric: ", isAntisymmetric(edges))
