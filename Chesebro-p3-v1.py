@@ -72,6 +72,25 @@ def isTransitive(edges):
                 return False
     return True
 
+def findTransitiveEnclosure(verts, edges):
+    m = [[0 for x in range(len(verts))] for x in range(len(verts))]
+    for x in range(len(verts)):
+        for y in range(len(verts)):
+            if isRelated(verts[x].label, verts[y].label, edges):
+                m[x][y] = 1
+    for k in range(len(verts)):
+        for x in range(len(verts)):
+            for y in range(len(verts)):
+                if m[x][y] == 1:
+                    for i in range(len(verts)):
+                        if m[y][i] == 1:
+                            m[x][i] = 1
+
+    print("")
+    print("Transitive enclosure:")
+    for x in range(len(verts)):
+        print(verts[x].label, m[x])
+
 
 #get user input
 userVerts = input("enter the vertices(a, b, c): \n")
@@ -106,3 +125,4 @@ print("Reflexive: ", isReflexive(verts, edges))
 print("Symmetric: ", isSymmetric(edges))
 print("Transitive: ", isTransitive(edges))
 print("Antisymmetric: ", isAntisymmetric(edges))
+findTransitiveEnclosure(verts, edges)
