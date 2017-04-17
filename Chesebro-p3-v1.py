@@ -5,65 +5,46 @@
 #
 #########################################################
 
-
 #edge object containing the start and end point
 class edge(object):
     def __init__(self, vertA, vertB):
         self.A = vertA
         self.B = vertB
 
+#class object holding the label
 class vertex(object):
     def __init__(self, label):
         self.label = label
 
-#function to find the degree of a vertex given a name
-#and list of edges
-def findDegree(vert, edgeList):
-    deg = 0
-    for e in edgeList:
-        if(e.A == vert or e.B == vert):
-            deg = deg + 1
-    return deg
-
-#checks if val is in the list
-def contains(val, list):
-    for i in list:
-        if i == val:
-            return True
-    return False
-
-def labelToVertex(label, vertList):
-    for v in vertList:
-        if v.label == label:
-            return v
-    return -1
-
+#checks if there is a relation from vert1 to vert2
 def isRelated(vert1, vert2, edges):
     for e in edges:
         if e.A == vert1 and e.B == vert2:
             return True
     return False
 
+#checks if every vertex is related to itself
 def isReflexive(verts, edges):
     for v in verts:
         if not isRelated(v.label, v.label, edges):
             return False
     return True
 
-
+#checks if every edge has a reverse counterpart
 def isSymmetric(edges):
     for e in edges:
         if not isRelated(e.B, e.A, edges):
             return False
     return True
 
+#checks to see if the graph is antisymmetric
 def isAntisymmetric(edges):
     for e in edges:
         if isRelated(e.B, e.A, edges) and not e.A == e.B:
             return False
     return True
 
-
+#checks to see if the graph is transitive
 def isTransitive(edges):
     for e in edges:
         isTran = False
@@ -72,6 +53,7 @@ def isTransitive(edges):
                 return False
     return True
 
+#finds the adjacency matrix of the transitive enclosure of the graph
 def findTransitiveEnclosure(verts, edges):
     m = [[0 for x in range(len(verts))] for x in range(len(verts))]
     for x in range(len(verts)):
@@ -90,7 +72,6 @@ def findTransitiveEnclosure(verts, edges):
     print("Transitive enclosure:")
     for x in range(len(verts)):
         print(verts[x].label, m[x])
-
 
 #get user input
 userVerts = input("enter the vertices(a, b, c): \n")
